@@ -75,7 +75,6 @@ export async function get<TResponse>(
     async () => client.get<TResponse>(path, {params: queryParams}),
     backOffOptions,
   );
-  console.log('response', response);
   return response.data;
 }
 

@@ -40,14 +40,10 @@ export const Exercise = () => {
   );
 
   useEffect(() => {
-    console.log('initialized');
-
     dispatch(ExercisesActions.GET_EXERCISE_INFO.START.create(params.id));
   }, [dispatch, params.id]);
 
   if (isLoading) {
-    console.log('here one');
-
     return empty;
   }
 
@@ -76,7 +72,6 @@ export const Exercise = () => {
     ? exercise?.muscles_secondary[0].name
     : 'No info';
 
-  console.log(exerciseInstance);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.bachHeaderWrapper}>

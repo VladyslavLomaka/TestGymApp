@@ -7,7 +7,6 @@ export function* exercisesListSaga() {
   try {
     const exercisesData: SagaReturnType<typeof Api.exercises.getExercisesList> =
       yield call(Api.exercises.getExercisesList);
-    console.log('exercisesData', exercisesData);
 
     yield put(
       ExercisesActions.GET_EXERCISES_LIST.SUCCESS.create(exercisesData),

@@ -7,7 +7,6 @@ const actionCreator = ExercisesActions.GET_EXERCISE_INFO.START.create;
 
 export function* exerciseInfoSaga(action: ReturnType<typeof actionCreator>) {
   const id = action.payload;
-  console.log(id);
   try {
     const exerciseInfoData: SagaReturnType<
       typeof Api.exercises.getExercisesInfo
@@ -16,8 +15,6 @@ export function* exerciseInfoSaga(action: ReturnType<typeof actionCreator>) {
     yield put(
       ExercisesActions.GET_EXERCISE_INFO.SUCCESS.create(exerciseInfoData),
     );
-
-    console.log('exerciseInfoData', JSON.stringify(exerciseInfoData));
   } catch (e) {
     yield put(
       ExercisesActions.GET_EXERCISE_INFO.FAILED.create(

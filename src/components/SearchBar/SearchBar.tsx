@@ -23,7 +23,6 @@ export const SearchBar = () => {
   });
 
   const handleSubmitPress = () => {
-    console.log('Sending request');
     const inputValue = methods.getValues().searchQuery;
     dispatch(ExercisesActions.FILTER_EXERCISES.START.create(inputValue));
   };
