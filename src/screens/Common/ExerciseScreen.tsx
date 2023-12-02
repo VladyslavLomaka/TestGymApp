@@ -9,7 +9,7 @@ import {isLoadingSelector} from '@store/modules/UtilityProcessStatuses/selectors
 import {MusclesPrimary} from '@svg/MusclesPrimary';
 import {MusclesSecondary} from '@svg/MusclesSecondary';
 import {NoImage} from '@svg/NoImage';
-import {rem} from '@utils/rn-units';
+import {isAndroid, rem} from '@utils/rn-units';
 import {font} from '@utils/styles';
 import React, {useEffect} from 'react';
 import {
@@ -20,6 +20,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 
 export const Exercise = () => {
@@ -27,6 +28,7 @@ export const Exercise = () => {
     useRoute<Route<keyof MainStackParamList, ExerciseScreenParams>>();
 
   const dispatch = useDispatch();
+  const {top} = useSafeAreaInsets();
 
   const exercise = useSelector(retrieveExerciseInfo);
   const isLoading = useSelector(
@@ -40,10 +42,14 @@ export const Exercise = () => {
   );
 
   useEffect(() => {
+    console.log('initialized');
+
     dispatch(ExercisesActions.GET_EXERCISE_INFO.START.create(params.id));
   }, [dispatch, params.id]);
 
   if (isLoading) {
+    console.log('here one');
+
     return empty;
   }
 
@@ -72,8 +78,10 @@ export const Exercise = () => {
     ? exercise?.muscles_secondary[0].name
     : 'No info';
 
+  console.log(exerciseInstance);
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[styles.container, isAndroid && {paddingTop: rem(top + 12)}]}>
       <View style={styles.bachHeaderWrapper}>
         <BackHeader />
       </View>
@@ -108,7 +116,6 @@ export const Exercise = () => {
     </SafeAreaView>
   );
 };
-
 const styles = StyleSheet.create({
   empty: {
     flex: 1,
